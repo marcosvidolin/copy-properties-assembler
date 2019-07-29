@@ -4,9 +4,16 @@ repositories {
     jcenter()
 }
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-beans
     compile group: 'org.springframework', name: 'spring-beans', version: '5.1.8.RELEASE'
     testImplementation 'junit:junit:4.12'
+}
+
+jar {
+    baseName "copy-properties-assembler"
 }
 
