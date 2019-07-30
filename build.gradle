@@ -1,47 +1,68 @@
-apply plugin: 'java-library'
-apply plugin: 'maven-publish'
+buildscript {
+    ext.projectName = 'copy-properties-assembler'
+    ext.projectGroup = 'com.vidolima'
+    ext.projectArtifact = 'copy-properties-assembler'
+    ext.projectVersion = '1.0.0'
 
-repositories {
-    jcenter()
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
 }
 
-group = 'com.vidolima'
-version = '1.0.0'
+plugins {
+    id "com.jfrog.bintray" version "1.7"
+}
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+group projectGroup
+version projectVersion
+
+allprojects {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+}
+
+repositories {
+    mavenCentral()
+}
+
+publishing {
+    publications {
+        publish(MavenPublication) {
+            from components.java
+            groupId 'com.vidolima'
+            artifactId 'copy-properties-assembler'
+            version '1.0.0'
+        }
+    }
+}
+
+bintray {
+    user = System.getenv('BINTRAY_USER')
+    key = System.getenv()'BINTRY_API_KEY'
+    configurations = ['archives']
+    pkg {
+        repo = 'maven'
+        name = projectName
+        licenses = ['MIT']
+        publicDownloadNumbers = true
+        websiteUrl = 'https://github.com/marcosvidolin/copy-properties-assembler'
+        issueTrackerUrl = 'https://github.com/marcosvidolin/copy-properties-assembler/issues'
+        vcsUrl = 'https://github.com/marcosvidolin/copy-properties-assembler.git'
+        githubRepo = 'marcosvidolin/copy-properties-assembler'
+        version {
+            name = projectVersion
+            vcsTag = projectVersion
+            gpg {
+                sign = true
+            }
+        }
+    }
+}
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-beans
     compile group: 'org.springframework', name: 'spring-beans', version: '5.1.8.RELEASE'
     testImplementation 'junit:junit:4.12'
-}
-
-jar {
-    baseName "copy-properties-assembler"
-}
-
-task sourcesJar(type: Jar) {
-    archiveClassifier = 'sources'
-    from sourceSets.main.allJava
-}
-
-task javadocJar(type: Jar) {
-    archiveClassifier = 'javadoc'
-    from javadoc.destinationDir
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-
-            groupId = 'com.vidolima'
-            artifactId = 'copy-properties-assembler'
-            version = '1.0.0'
-
-            artifact sourcesJar
-            artifact javadocJar
-        }
-    }
 }
