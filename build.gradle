@@ -2,7 +2,7 @@ buildscript {
     ext.projectName = 'copy-properties-assembler'
     ext.projectGroup = 'com.vidolima'
     ext.projectArtifact = 'copy-properties-assembler'
-    ext.projectVersion = '1.0.0'
+    ext.projectVersion = 'v1.0.0'
 
     repositories {
         mavenCentral()
@@ -31,16 +31,16 @@ publishing {
     publications {
         publish(MavenPublication) {
             from components.java
-            groupId 'com.vidolima'
-            artifactId 'copy-properties-assembler'
-            version '1.0.0'
+            groupId projectGroup
+            artifactId projectArtifact
+            version projectVersion
         }
     }
 }
 
 bintray {
     user = System.getenv('BINTRAY_USER')
-    key = System.getenv()'BINTRY_API_KEY'
+    key = System.getenv('BINTRY_API_KEY')
     configurations = ['archives']
     pkg {
         repo = 'maven'
@@ -59,6 +59,21 @@ bintray {
             }
         }
     }
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
 }
 
 dependencies {
