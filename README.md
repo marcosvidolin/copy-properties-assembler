@@ -15,7 +15,7 @@ compile 'com.vidolima:copy-properties-assembler:v1.1.0'
 
 ## How to use
 
-Domain class
+My entity class (usually) 
 ```java
 @Entity
 public class User {
@@ -28,7 +28,16 @@ public class User {
 }
 ```
 
-Resource class
+User resource with some basics information that all users can see 
+```java
+public class BasicUserResource {
+  private String firstname;
+  private String username;
+  // ...
+}
+```
+
+User resource with full information. Only Admin can see 
 ```java
 public class FullUserResource {
   private String firstname;
@@ -40,16 +49,7 @@ public class FullUserResource {
 }
 ```
 
-Resource class
-```java
-public class BasicUserResource {
-  private String firstname;
-  private String username;
-  // ...
-}
-```
-
-Assembler 
+Assembler to convert the domain class (User) into a resource 
 ```java
 public class UserAssembler extends GenericResourceAssembler<UserDomain> {
   public UserAssembler() {
@@ -58,7 +58,7 @@ public class UserAssembler extends GenericResourceAssembler<UserDomain> {
 }
 ```
 
-Controller
+A rest controller exemplo that converts the User domain to a specific resource
 ```java
 @RestController
 @RequestMapping(value = "/api/v1", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -74,7 +74,7 @@ class UserController {
     return ResponseEntity.ok(resource);
   }
   
-  /** Will return all the user information. */
+  /** Will return all the user information (Admin only). */
   @GetMapping(path = "/admin/users/{username}")
   public ResponseEntity getBasicUser(@PathVariable String username) {
     User domain = this.service.findUserByUsername(username);
