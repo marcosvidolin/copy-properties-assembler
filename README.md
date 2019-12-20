@@ -13,6 +13,17 @@ Gragle
 compile 'com.vidolima:copy-properties-assembler:v1.1.0'
 ```
 
+Maven
+
+```xml
+<dependency>
+	<groupId>com.vidolima</groupId>
+	<artifactId>copy-properties-assembler</artifactId>
+	<version>v1.1.0</version>
+	<type>pom</type>
+</dependency>
+```
+
 ## How to use
 
 My entity class (usually) 

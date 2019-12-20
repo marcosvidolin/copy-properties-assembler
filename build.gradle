@@ -2,7 +2,7 @@ buildscript {
     ext.projectName = 'copy-properties-assembler'
     ext.projectGroup = 'com.vidolima'
     ext.projectArtifact = 'copy-properties-assembler'
-    ext.projectVersion = 'v1.0.0'
+    ext.projectVersion = 'v1.1.0'
 
     repositories {
         mavenCentral()
