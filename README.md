@@ -4,6 +4,7 @@
 [![Build Status](https://travis-ci.org/marcosvidolin/copy-properties-assembler.svg?branch=master)](https://travis-ci.org/marcosvidolin/copy-properties-assembler)
 
 A simple copy properties wrapper to convert domain into resource/dto and vice versa.
+Take a look at [Ditiow](https://github.com/marcosvidolin/ditiow).
 
 ## Setup
 
