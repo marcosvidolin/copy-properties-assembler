@@ -78,6 +78,6 @@ artifacts {
 
 dependencies {
     // https://mvnrepository.com/artifact/org.springframework/spring-beans
-    compile group: 'org.springframework', name: 'spring-beans', version: '5.2.2.RELEASE'
+    compile group: 'org.springframework', name: 'spring-beans', version: '5.2.3.RELEASE'
     testImplementation 'junit:junit:4.13'
 }
